@@ -1,0 +1,120 @@
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-sans/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+
+  --color-accent: #1670a6;
+  --color-accent-hover: #115882;
+  --color-accent-soft: #e3f1f7;
+
+  --color-bg-app: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f0f2f6;
+  --color-border: #e2e6ec;
+  --color-border-subtle: #ebeef2;
+
+  --color-text-primary: #1a202c;
+  --color-text-secondary: #5b6472;
+  --color-text-tertiary: #94a0b2;
+
+  --color-success: #1a9e76;
+  --color-success-soft: #e4f7f1;
+  --color-warning: #c8850f;
+  --color-warning-soft: #fbf1e0;
+  --color-danger: #d64545;
+  --color-danger-soft: #fbe9e9;
+}
+
+:root.dark {
+  color-scheme: dark;
+
+  --color-accent: #4fa8d6;
+  --color-accent-hover: #6fbce0;
+  --color-accent-soft: #16323f;
+
+  --color-bg-app: #0f1417;
+  --color-surface: #171d21;
+  --color-surface-secondary: #1e262b;
+  --color-border: #2a333a;
+  --color-border-subtle: #232b31;
+
+  --color-text-primary: #e7ebee;
+  --color-text-secondary: #9ba7b3;
+  --color-text-tertiary: #6b7680;
+
+  --color-success: #3fbf95;
+  --color-success-soft: #123027;
+  --color-warning: #e0a53d;
+  --color-warning-soft: #2e2412;
+  --color-danger: #e86868;
+  --color-danger-soft: #331c1c;
+}
+
+html {
+  @apply antialiased;
+}
+
+body {
+  @apply bg-app text-primary transition-colors duration-200;
+  font-feature-settings: "tnum" 1;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+:focus-visible {
+  @apply outline outline-2 outline-offset-2 outline-accent;
+}
+
+/* Topoloji region z-sırası garantisi: react-flow node'u seçilince/
+   sürüklenince ona yazdığı INLINE z-index'i burada !important ile eziyoruz —
+   region'ın switch'lerin HER ZAMAN altında kalması için (elevateNodesOnSelect
+   sadece "seçili" durumunu etkiler, bu kural durumdan bağımsız kesin garanti
+   sağlar). Metin notları artık react-flow node'u değil (bkz.
+   AnnotationOverlay.tsx) — ayrı bir overlay katmanında, DOM sırası gereği
+   zaten her zaman en üstte, bu tür bir CSS zorlamasına ihtiyaçları yok. */
+.react-flow__node-region {
+  z-index: -1 !important;
+}
+
+/* skeleton shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-secondary) 25%,
+    var(--color-border-subtle) 50%,
+    var(--color-surface-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

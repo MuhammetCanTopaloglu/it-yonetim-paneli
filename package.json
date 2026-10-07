@@ -1,0 +1,54 @@
+{
+  "name": "it-panel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "IT Yönetim Paneli - dahili ağ/envanter yönetim uygulaması",
+  "author": "CANT",
+  "license": "MIT",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build": "npm run build --prefix server && npm run build --prefix client",
+    "start": "npm start --prefix server",
+    "electron": "npm run build && electron .",
+    "dist:win": "npm run build && electron-builder --win",
+    "seed:demo": "npm run seed:demo --prefix server",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "electron": "^44.4.3",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.itpanel.desktop",
+    "productName": "IT Yönetim Paneli",
+    "asar": false,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron/**/*",
+      "server/dist/**/*",
+      "server/node_modules/**/*",
+      "server/package.json",
+      "client/dist/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "icon": "electron/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "IT-Yonetim-Paneli-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "IT-Yonetim-Paneli-Portable-${version}.${ext}"
+    }
+  }
+}

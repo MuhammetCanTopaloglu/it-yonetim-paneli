@@ -1,0 +1,39 @@
+# Bağımlılıklar (kök, server, client — node_modules/ deseni her seviyede eşleşir)
+node_modules/
+
+# Derleme / paketleme çıktıları
+dist/
+build/
+release/
+*.zip
+*.exe
+*.blockmap
+
+# Gerçek veri klasörü: içeriği asla repoya girmez, klasör boş kalır (.gitkeep)
+data/*
+!data/.gitkeep
+
+# Demo seed çıktısı (server/scripts/seed-demo.mjs)
+demo-data/
+
+# Veritabanı dosyaları (her seviyede)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Ortam değişkenleri / sırlar
+.env
+.env.*
+!.env.example
+
+# Editör / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Log dosyaları
+*.log
+npm-debug.log*
+
+*.tsbuildinfo
